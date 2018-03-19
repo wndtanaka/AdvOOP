@@ -2,39 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
-public class PlayerAnim : MonoBehaviour
+namespace SunnyLand
 {
-    CharacterController controller;
-    Animator anim;
-
-    void Start()
+    [RequireComponent(typeof(CharacterController))]
+    public class PlayerAnim : MonoBehaviour
     {
-        controller = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
-        controller.onMove += OnMove;
-        controller.onJump += OnJump;
-        controller.onClimb += OnClimb;
-        controller.onCrouch += OnCrouch;
-    }
+        CharacterController controller;
+        Animator anim;
 
-    public void OnMove()
-    {
-        anim.SetBool("isRun", true);
-    }
+        void Start()
+        {
+            controller = GetComponent<CharacterController>();
+            anim = GetComponent<Animator>();
+            controller.onGroundedChanged += OnGroundedChanged;
+        }
 
-    public void OnCrouch()
-    {
-        anim.SetBool("isCrouch", true);
-    }
+        public void OnGroundedChanged(bool isGrounded)
+        {
+            if (isGrounded)
+            {
+                Debug.Log("Teehee");
+            }
+            else
+            {
+                Debug.Log("Doom");
+            }
+        }
+        public void OnMove()
+        {
+            anim.SetBool("isRun", true);
+        }
 
-    public void OnJump()
-    {
-        anim.SetBool("isJump", true);
-    }
+        public void OnCrouch()
+        {
+            anim.SetBool("isCrouch", true);
+        }
 
-    public void OnClimb()
-    {
+        public void OnJump()
+        {
+            anim.SetBool("isJump", true);
+        }
 
+        public void OnClimb()
+        {
+
+        }
     }
 }
